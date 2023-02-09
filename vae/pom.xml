@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <!--打包方式  pom-->
+    <packaging>pom</packaging>
+    <modules>
+        <!--注册器-->
+        <module>springcloud-eureka-01</module>
+        <module>springcloud-eureka-02</module>
+        <module>springcloud-eureka-03</module>
+        <!--消费者-->
+        <module>springcloud-consumer-feign-80</module>
+        <!--生产者-->
+        <module>springcloud-provider-hystrix-01</module>
+        <module>springcloud-provider-hystrix-02</module>
+        <module>springcloud-provider-hystrix-03</module>
+        <!--网关-->
+        <module>springcloud-zuul-01</module>
+        <!--接口-->
+        <module>springcloud-api</module>
+        <!--流量监视器-->
+        <module>springcloud-consumer-hystrix-dashboard</module>
+    </modules>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.12.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.vae</groupId>
+    <artifactId>vae</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>vae</name>
+    <description>vae-music-wx</description>
+    <properties>
+        <maven.compiler.source>16</maven.compiler.source>
+        <maven.compiler.target>16</maven.compiler.target>
+        <java.version>1.8</java.version>
+        <mysql.version>5.1.49</mysql.version>
+        <swagger.version>2.10.5</swagger.version>
+    </properties>
+    <dependencyManagement>
+        <!--版本对应关系要注意-->
+        <dependencies>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>2.2.7.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--springCloud的依赖-->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Hoxton.SR12</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--SpringBoot 引入多个springboot starter依赖，对这些依赖的版本号统一管理-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>2.3.12.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

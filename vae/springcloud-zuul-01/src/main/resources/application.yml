@@ -1,0 +1,44 @@
+server:
+  port: 9001
+
+spring:
+  application:
+    name: springcloud-zuul
+
+# Eureka配置：配置服务注册中心地址
+eureka:
+  client:
+    # 表示是否向 Eureka 注册中心注册自己，客户端的话为 ture（默认，客户端可不写）
+    #register-with-eureka: true
+    # fetch-registry如果为false,则表示自己为注册中心,客户端的话为 ture（默认，客户端可不写）
+    #fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:7001/eureka/,http://192.168.42.185:7002/eureka/,http://127.0.0.1:7003/eureka/
+  instance:
+    instance-id: springcloud-zuul-9001 #修改Eureka上的默认描述信息
+    prefer-ip-address: true
+info:
+  app.name: wm-vae
+  company.name: 小白很无奈
+
+zuul:
+  ignored-services: '*' #不再使用定义的名称路径进行访问(配置的服务将不被zuul代理），多个服务名称使用逗号','分隔。（*）所有
+  routes:
+    #p1:
+      # 可使用的通配符有： * ** ?
+      # ? 单个字符
+      # * 任意多个字符，不包含多级路径
+      # ** 任意多个字符，包含多级路径
+    zzx.path: /** # 将eureka注册中心的服务提供方路由名称 改为自定义路由名称
+      # url用于配置符合path的请求路径路由到的服务地址。
+      #zzx.url: http://localhost:8001/
+      #zzx 自定义(也可以不写)
+    zzx.serviceId: springcloud-consumer-80 # ** 名称要小写 **serviceId用于配置符合path的请求路径路由到的服务名称。(springcloud-provider-blog在负载均衡中结合了解)
+    #多个服务器时可以分别定义
+    #p2:
+      #path: /**
+      #url: http://127.0.0.1:8086/
+  prefix: / # 设置公共的前缀
+
+# 自己了解  静/动态路由+ribbon负载均衡/故障切换 等
+

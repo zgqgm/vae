@@ -1,0 +1,46 @@
+server:
+  port: 8001
+
+# 数据源相关的配置
+spring:
+  application:
+    name: springcloud-provider
+  datasource:
+    # 默认使用的数据源Hikari
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/music?useSSL=false&characterEncoding=UTF8&useUnicode=true&serverTimeZone=Asia/Shanghai
+    username: root
+    password: 958824
+# mybatis-plus的配置
+mybatis-plus:
+  configuration:
+    # 开启mybatis-plus的日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  # 指定mapper映射文件的路径
+  # 也可以不写，默认使用的是mapper路径下的所有xml
+  mapper-locations: classpath:com/gm/mapper/**/*.xml
+  # 配置mapper映射文件中的别名所在的包
+  type-aliases-package: com.gm.entity
+  # 扫描指定包下的枚举注解：@EnumValue
+  type-enums-package: com.gm.enums
+
+# Eureka配置：配置服务注册中心地址
+eureka:
+  client:
+    # 表示是否向 Eureka 注册中心注册自己，客户端的话为 ture（默认，客户端可不写）
+    register-with-eureka: true
+    # fetch-registry如果为false,则表示自己为注册中心,客户端的话为 ture（默认，客户端可不写）
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:7001/eureka/,http://192.168.42.185:7002/eureka/,http://127.0.0.1:7003/eureka/
+  instance:
+    instance-id: springcloud-provider-8001 #修改Eureka上的默认描述信息
+    prefer-ip-address: true
+
+info:
+  app.name: wm-vae
+  company.name: 小白很无奈
+feign:
+  hystrix:
+    enabled: true #开启降级

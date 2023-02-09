@@ -1,0 +1,99 @@
+server:
+  port: 8002
+
+# 数据源相关的配置
+spring:
+  application:
+    name: springcloud-provider
+  datasource:
+    # 默认使用的数据源Hikari--也可以使用-->德鲁伊
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/music?useSSL=false&characterEncoding=UTF8&useUnicode=true&serverTimeZone=Asia/Shanghai
+    username: root
+    password: 958824
+  #文件上传下载相关配置
+  servlet:
+    multipart:
+      enabled: true
+      max-request-size: 100MB
+      max-file-size: 10MB
+  #邮件相关配置（默认邮箱--只支持一个源）
+  mail:
+    # 发送邮件的服务器主机地址
+    host: smtp.qq.com
+    # 发送者邮箱
+    username: 1977331678@qq.com
+    # 这个密码是第三方服务的授权码，并不是QQ密码
+    password: iohoskxzlcrwdjia
+    default-encoding: UTF-8
+    port: 465
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          ssl:
+            enable: true
+            socketFactory:
+              port: 465
+              class: javax.net.ssl.SSLSocketFactory
+        debug: true
+#个人配置---用来实现多源邮箱
+sender-email:
+  mail:
+    #邮件相关配置（默认邮箱--只支持一个源）
+    mail-0:
+      # 发送邮件的服务器主机地址
+      host: smtp.qq.com
+      # 发送者邮箱
+      username: 1977331678@qq.com
+      # 这个密码是第三方服务的授权码，并不是QQ密码
+      password: iohoskxzlcrwdjia
+      encoding: UTF-8
+      port: 465
+      protocol: smtp
+    #邮箱源2---163邮箱
+    mail-1:
+      # 发送邮件的服务器主机地址
+      host: smtp.163.com
+      # 发送者邮箱
+      username: zgqmailplus@163.com
+      # 这个密码是第三方服务的授权码，并不是 163 密码--不能泄露-危险
+      password: BYQITWMZXKAQYIZV
+      encoding: UTF-8
+      port: 465
+      protocol: smtp
+# mybatis-plus的配置
+mybatis-plus:
+  configuration:
+    # 开启mybatis-plus的日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  # 指定mapper映射文件的路径
+  # 也可以不写，默认使用的是mapper路径下的所有xml
+  mapper-locations: classpath:com/gm/mapper/**/*.xml
+  # 配置mapper映射文件中的别名所在的包
+  type-aliases-package: com.gm.entity.entity_2
+
+# Eureka配置：配置服务注册中心地址
+eureka:
+  client:
+    # 表示是否向 Eureka 注册中心注册自己，客户端的话为 ture（默认，客户端可不写）
+    register-with-eureka: true
+    # fetch-registry如果为false,则表示自己为注册中心,客户端的话为 ture（默认，客户端可不写）
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:7001/eureka/,http://192.168.42.185:7002/eureka/,http://127.0.0.1:7003/eureka/
+  instance:
+    instance-id: springcloud-provider-8002 #修改Eureka上的默认描述信息
+    prefer-ip-address: true
+
+info:
+  app.name: wm-vae
+  company.name: 小白很无奈
+feign:
+  hystrix:
+    enabled: true #开启降级

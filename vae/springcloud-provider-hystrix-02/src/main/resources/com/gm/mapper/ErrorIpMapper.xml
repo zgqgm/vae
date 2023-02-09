@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gm.dao.ErrorIpMapper">
+    <update id="updateNums" >
+        UPDATE music.tb_iplog set nums=#{nums},errorTime=#{date} WHERE errorIp = #{ip}
+    </update>
+    <delete id="deleteByTime">
+        delete from music.tb_iplog where errorTime &lt;= #{date}
+    </delete>
+    <select id="selectIpAll" resultType="com.gm.entity.IpLog">
+        select `id`,`nums`,`errorTime`,`errorIp` from music.tb_iplog where errorIp = #{ip}
+    </select>
+</mapper>

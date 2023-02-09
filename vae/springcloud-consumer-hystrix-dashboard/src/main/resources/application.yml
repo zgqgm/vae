@@ -1,0 +1,7 @@
+server:
+  port: 9086
+
+
+hystrix:
+  dashboard:
+    proxy-stream-allow-list: "*" #用来解决监听器因为 主机 访问不到的问题（Unable to connect to Command Metric Stream.）
