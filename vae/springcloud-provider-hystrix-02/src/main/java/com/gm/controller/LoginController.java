@@ -41,9 +41,9 @@ public class LoginController {
      * */
     @GetMapping("/user/code")
     public ResultVO getCode(String code) {
-        String appid = "wxf72e6e7b096a638f";
+        String appid = "wx**************38f";
         //app秘钥
-        String appSecret = "133ced039f7eed1333de2b6b373f8a49";
+        String appSecret = "133ced039******************f8a49";
         if (code == null || code.equals("")){
             return ResultVO.error("code为空");
         }
